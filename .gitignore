@@ -1,4 +1,8 @@
 .idea
-lib
-target
+.settings
+test.iml
+.idea/
+.settings/
+src/test/
+target/
 Demo.iml

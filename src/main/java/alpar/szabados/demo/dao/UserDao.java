@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class UserDao {
-    private static final String DEFAULT_SELECT_QUERY = "SELECT u from Users u";
+    private static final String DEFAULT_SELECT_QUERY = "SELECT u from User u";
     private static final EntityManager ENTITY_MANAGER = Connection.getConnection();
     private static final EntityTransaction TRANSACTION = ENTITY_MANAGER.getTransaction();
 
@@ -28,8 +28,8 @@ public class UserDao {
         TRANSACTION.commit();
     }
 
-    public static User createNewUser(Long id, String user_name) {
-        return new User(id, user_name);
+    public static User createNewUser(String user_name, String password) {
+        return new User(user_name, password);
     }
 
     public static void deleteUser(User user) {

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ActivityDao {
-    private static final String DEFAULT_SELECT_QUERY = "SELECT u from Activities u";
+    private static final String DEFAULT_SELECT_QUERY = "SELECT u from Activity u";
     private static final EntityManager ENTITY_MANAGER = Connection.getConnection();
     private static final EntityTransaction TRANSACTION = ENTITY_MANAGER.getTransaction();
 
@@ -30,8 +30,8 @@ public class ActivityDao {
         TRANSACTION.commit();
     }
 
-    public static Activity createNewActivity(Long id, Long userId, String activityName, LocalDate activityDate, Complete complete) {
-        return new Activity(id, userId, activityName, activityDate, complete);
+    public static Activity createNewActivity(Long userId, String activityName, LocalDate activityDate, Complete complete) {
+        return new Activity(userId, activityName, activityDate, complete);
     }
 
     public static void deleteActivity(Activity activity) {

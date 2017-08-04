@@ -1,29 +1,50 @@
 package alpar.szabados.demo.entities;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user")
 public class User {
-    private Long id;
-    private String user_name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userId", nullable = false, unique = true)
+    private Long userId;
 
-    public User(Long id, String user_name) {
-        this.id = id;
-        this.user_name = user_name;
+    @Column(name = "userName")
+    private String userName;
+
+    @Column(name = "password")
+    private String password;
+
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
-    public Long getId() {
-
-        return id;
+    public User() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public void setUserId(Long id) {
+        this.userId = id;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public String getUserName() {
+        return userName;
     }
 
+    public void setUserName(String user_name) {
+        this.userName = user_name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
