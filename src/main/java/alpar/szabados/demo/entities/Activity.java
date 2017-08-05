@@ -1,6 +1,6 @@
 package alpar.szabados.demo.entities;
 
-import alpar.szabados.demo.utils.Complete;
+import alpar.szabados.demo.utils.TaskStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,13 +23,13 @@ public class Activity {
     private LocalDate activityDate;
 
     @Column(name = "complete") // TODO rename
-    private Complete complete;
+    private TaskStatus taskStatus;
 
-    public Activity(Long userId, String activityName, LocalDate activityDate, Complete complete) {
+    public Activity(Long userId, String activityName, LocalDate activityDate, TaskStatus taskStatus) {
         this.userId = userId;
         this.activityName = activityName;
         this.activityDate = activityDate;
-        this.complete = complete;
+        this.taskStatus = taskStatus;
     }
 
     public Activity() {
@@ -67,16 +67,16 @@ public class Activity {
         this.activityDate = activityDate;
     }
 
-    public Complete getComplete() {
-        return complete;
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
-    public void setComplete(Complete complete) {
-        this.complete = complete;
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
     @Override
     public String toString() {
-        return String.format("Activity{activityId=%d, userId=%d, activityName='%s', activityDate=%s, complete=%s}", activityId, userId, activityName, activityDate, complete);
+        return String.format("Activity{activityId=%d, userId=%d, activityName='%s', activityDate=%s, taskStatus=%s}", activityId, userId, activityName, activityDate, taskStatus);
     }
 }

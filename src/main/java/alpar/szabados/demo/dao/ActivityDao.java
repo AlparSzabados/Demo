@@ -1,7 +1,7 @@
 package alpar.szabados.demo.dao;
 
 import alpar.szabados.demo.entities.Activity;
-import alpar.szabados.demo.utils.Complete;
+import alpar.szabados.demo.utils.TaskStatus;
 
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
@@ -26,8 +26,8 @@ public class ActivityDao {
         runTransaction(() -> ENTITY_MANAGER.persist(activity));
     }
 
-    public static Activity createNewActivity(Long userId, String activityName, LocalDate activityDate, Complete complete) {
-        return new Activity(userId, activityName, activityDate, complete);
+    public static Activity createNewActivity(Long userId, String activityName, LocalDate activityDate, TaskStatus taskStatus) {
+        return new Activity(userId, activityName, activityDate, taskStatus);
     }
 
     public static void deleteActivity(Activity activity) {
