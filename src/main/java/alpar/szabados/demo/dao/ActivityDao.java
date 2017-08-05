@@ -1,19 +1,17 @@
 package alpar.szabados.demo.dao;
 
-import alpar.szabados.demo.Connection;
 import alpar.szabados.demo.entities.Activity;
 import alpar.szabados.demo.utils.Complete;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
 
+import static alpar.szabados.demo.utils.RunTransaction.ENTITY_MANAGER;
+import static alpar.szabados.demo.utils.RunTransaction.runTransaction;
+
 public class ActivityDao {
     private static final String DEFAULT_SELECT_QUERY = "SELECT u from Activity u";
-    private static final EntityManager ENTITY_MANAGER = Connection.getConnection();
-    private static final EntityTransaction TRANSACTION = ENTITY_MANAGER.getTransaction();
 
     public static List<Activity> getAllActivities() {
         TypedQuery<Activity> selectAllQuery = ENTITY_MANAGER.createQuery(DEFAULT_SELECT_QUERY, Activity.class);
@@ -25,9 +23,7 @@ public class ActivityDao {
     }
 
     public static void addNewActivity(Activity activity) {
-        TRANSACTION.begin();
-        ENTITY_MANAGER.persist(activity);
-        TRANSACTION.commit();
+        runTransaction(() -> ENTITY_MANAGER.persist(activity));
     }
 
     public static Activity createNewActivity(Long userId, String activityName, LocalDate activityDate, Complete complete) {
@@ -35,16 +31,15 @@ public class ActivityDao {
     }
 
     public static void deleteActivity(Activity activity) {
-        if (activity == null) return;
-        TRANSACTION.begin();
-        ENTITY_MANAGER.remove(ENTITY_MANAGER.contains(activity) ? activity : ENTITY_MANAGER.merge(activity));
-        TRANSACTION.commit();
+        if (activity == null) // TODO is this really necessary
+            return;
+        Activity entity = ENTITY_MANAGER.contains(activity) ? activity : ENTITY_MANAGER.merge(activity); // TODO why merge before a remove?
+        runTransaction(() -> ENTITY_MANAGER.remove(entity));
     }
 
     public static void updateActivity(Activity activity) {
-        if (activity == null) return;
-        TRANSACTION.begin();
-        ENTITY_MANAGER.merge(activity);
-        TRANSACTION.commit();
+        if (activity == null)
+            return;
+        runTransaction(() -> ENTITY_MANAGER.merge(activity));
     }
 }
