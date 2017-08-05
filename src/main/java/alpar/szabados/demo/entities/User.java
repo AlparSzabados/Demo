@@ -8,7 +8,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId", nullable = false, unique = true)
-    private Long userId;
+    private long userId;
 
     @Column(name = "userName")
     private String userName;
@@ -46,5 +46,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User{userId=%d, userName='%s', password='%s'}", userId, userName, password);
     }
 }

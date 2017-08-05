@@ -10,11 +10,11 @@ import java.time.LocalDate;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "activityId")
-    private Long activityId;
+    @Column(name = "activityId", nullable = false, unique = true)
+    private long activityId;
 
     @Column(name = "userId")
-    private Long userId;
+    private long userId; // TODO investigate nullability
 
     @Column(name = "activityName")
     private String activityName;
@@ -22,7 +22,7 @@ public class Activity {
     @Column(name = "activityDate")
     private LocalDate activityDate;
 
-    @Column(name = "complete")
+    @Column(name = "complete") // TODO rename
     private Complete complete;
 
     public Activity(Long userId, String activityName, LocalDate activityDate, Complete complete) {
@@ -73,5 +73,10 @@ public class Activity {
 
     public void setComplete(Complete complete) {
         this.complete = complete;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Activity{activityId=%d, userId=%d, activityName='%s', activityDate=%s, complete=%s}", activityId, userId, activityName, activityDate, complete);
     }
 }
