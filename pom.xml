@@ -53,6 +53,13 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!--Jackson Core-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
         <!--Hibernate core-->
         <dependency>
             <groupId>org.hibernate</groupId>
