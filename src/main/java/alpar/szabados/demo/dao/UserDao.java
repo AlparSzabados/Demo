@@ -1,7 +1,9 @@
 package alpar.szabados.demo.dao;
 
 import alpar.szabados.demo.entities.User;
+import org.hibernate.sql.Select;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -18,6 +20,12 @@ public class UserDao {
 
     public static User getEntityById(String id) {
         return ENTITY_MANAGER.find(User.class, id);
+    }
+
+    public static String getEntityByName(String name) {
+        TypedQuery<User> query = ENTITY_MANAGER.createQuery("select u from User u where userName = '" + name + "'", User.class);
+        User user = query.getResultList().get(0);
+        return user.toString();
     }
 
     public static void addNewUser(User user) {
