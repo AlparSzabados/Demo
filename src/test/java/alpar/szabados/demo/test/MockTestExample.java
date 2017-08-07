@@ -1,4 +1,4 @@
-package alpar.szabados.demo.hello;
+package alpar.szabados.demo.test;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
