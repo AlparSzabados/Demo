@@ -1,6 +1,6 @@
 package alpar.szabados.demo.utils;
 
-public enum TaskStatus { // TODO rename -> TaskStatus?
+public enum TaskStatus {
     COMPLETED,
     NOT_COMPLETED
 }
