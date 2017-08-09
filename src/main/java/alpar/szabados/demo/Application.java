@@ -1,35 +1,39 @@
 package alpar.szabados.demo;
 
-import alpar.szabados.demo.dao.UserDao;
-import alpar.szabados.demo.entities.User;
-import org.springframework.boot.CommandLineRunner;
+import org.ocpsoft.rewrite.servlet.RewriteFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
-import java.util.Arrays;
+import javax.faces.webapp.FacesServlet;
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
+
+import static javax.servlet.DispatcherType.*;
 
 @SpringBootApplication
+@ComponentScan({"alpar.szabados.demo"})
 public class Application {
+	private static final EnumSet<DispatcherType> DISPATCHER_TYPES = EnumSet.of(FORWARD, REQUEST, ASYNC, ERROR);
 
-    public static void main(String[] args) {
-        SpringApplication.run(alpar.szabados.demo.Application.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(alpar.szabados.demo.Application.class, args);
+	}
 
-//    private static void printUserEntries() {
-//        UserDao.getAllUsers().forEach(System.out::println);
-//    }
+	@Bean
+	public FilterRegistrationBean rewriteFilter() {
+		FilterRegistrationBean rwFilter = new FilterRegistrationBean(new RewriteFilter());
+		rwFilter.setDispatcherTypes(DISPATCHER_TYPES);
+		rwFilter.addUrlPatterns("/*");
+		return rwFilter;
+	}
 
-    @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return args -> {
-            System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-            Arrays.stream(ctx.getBeanDefinitionNames())
-                  .sorted()
-                  .forEach(System.out::println);
-        };
-    }
+	@Bean
+	public ServletRegistrationBean servletRegistrationBean() {
+		return new ServletRegistrationBean(new FacesServlet(), "*.jsf");
+	}
 }
 
