@@ -10,19 +10,19 @@ import java.time.LocalDate;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "activityId", nullable = false, unique = true)
+    @Column(name = "activity_id", nullable = false, unique = true)
     private long activityId;
 
-    @Column(name = "userId")
+    @Column(name = "user_id", nullable = false, unique = true)
     private long userId; // TODO investigate nullability
 
-    @Column(name = "activityName")
+    @Column(name = "activity_name")
     private String activityName;
 
-    @Column(name = "activityDate")
+    @Column(name = "activity_date")
     private LocalDate activityDate;
 
-    @Column(name = "complete") // TODO rename
+    @Column(name = "task_status") // TODO rename
     private TaskStatus taskStatus;
 
     public Activity(Long userId, String activityName, LocalDate activityDate, TaskStatus taskStatus) {
